@@ -1,15 +1,13 @@
 import static io.restassured.RestAssured. *;
 import static org.hamcrest.Matchers.equalTo;
-
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import io.restassured.response.Response;
-
 import java.util.HashMap;
 import java.util.Map;
 
-public class Demo {
+public class Demo extends BaseClass{
     @Test
     public void testGetusers(){
         baseURI = "https://reqres.in/api";
@@ -63,5 +61,22 @@ public class Demo {
             then().statusCode(200).
                 body("data[1].id", equalTo(8)).
                 log().all();
+    }
+
+    @Test
+    public void preemptiveTest(){
+        String complement = "/login/";
+        String complement1 = "/forms/";
+        int code =
+            when().
+                get(complement1).
+                getStatusCode();
+        System.out.println("Response Code From Server is: " + code);
+
+        int code1 =
+            when().
+                get(complement).
+                getStatusCode();
+        System.out.println("Response Code From Server is: " + code1);
     }
 }
