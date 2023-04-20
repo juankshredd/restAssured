@@ -1,3 +1,5 @@
+package ApiTest;
+
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.baseURI;
@@ -10,12 +12,13 @@ public class PutPatAndDelete {
 
         JSONObject request = new JSONObject();
 
-        request.put("name", "Juank");
-        request.put("Job", "QA Engineer");
+        request.put("name", "cajCart1");
+        request.put("Job", "cajCart1");
 
         System.out.println(request.toString());
 
-        baseURI = "https://reqres.in/api";
+
+        baseURI = "https://posqa1.novaventa.com.co";
 
         given().
                 header("Content-Type", "application/json").
@@ -23,7 +26,8 @@ public class PutPatAndDelete {
                 accept(JSON).
                 body(request.toJSONString()).
         when().
-                put("/user/2").
+                put("/login").
+
         then().
                 statusCode(200).
                 log().all();

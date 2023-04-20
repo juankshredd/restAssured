@@ -1,3 +1,5 @@
+package pokemon;
+
 import static io.restassured.RestAssured. *;
 import static org.hamcrest.Matchers.equalTo;
 import org.testng.annotations.Test;
@@ -15,6 +17,20 @@ public class RampUpPokemonApi {
             statusCode(200).
             body("abilities[0].ability.name", equalTo("limber")).
             log().all();
-        System.out.println();
+    }
+    @Test
+    public void getPokemonV2(){
+
+        baseURI = "https://pokeapi.co/api/v2";
+
+        String body =
+                given().
+                when().
+                    get().
+                then().
+                    statusCode(200).
+                    extract().body().asString();
+        System.out.println(body);
+
     }
 }

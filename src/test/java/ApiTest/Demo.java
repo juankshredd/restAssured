@@ -1,6 +1,9 @@
+package ApiTest;
+
 import static io.restassured.RestAssured. *;
 import static org.hamcrest.Matchers.equalTo;
 import io.restassured.RestAssured;
+import org.apache.http.HttpStatus;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import io.restassured.response.Response;
@@ -25,8 +28,8 @@ public class Demo extends BaseClass{
         baseURI = "https://reqres.in/api";
 
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("name", "Alejandra");
-        map.put("Job", "Costumer");
+        map.put("name", "Picasso");
+        map.put("Job", "Painter");
 
         given()
             .log().all()
@@ -78,5 +81,30 @@ public class Demo extends BaseClass{
                 get(complement).
                 getStatusCode();
         System.out.println("Response Code From Server is: " + code1);
+    }
+
+    @Test
+    public void testPostJSONServer(){
+        baseURI = "https://reqres.in/api";
+        String complement = "/users";
+        String email = "helenita@mail.pez";
+        String password = "PasswordHelena";
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("nickname", "Helena");
+        map.put("password", "PasswordHelena");
+        map.put("subjectId", 3);
+        map.put("id", 5);
+
+        given().
+            header("Content-Type", "application/json", "charset=UTF-8").
+            auth().
+            basic(email, password).
+            log().all().
+        when().
+            post(complement).
+        then().
+            log().all().
+            statusCode(HttpStatus.SC_CREATED);
     }
 }

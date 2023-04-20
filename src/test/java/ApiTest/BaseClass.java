@@ -1,3 +1,5 @@
+package ApiTest;
+
 import static io.restassured.RestAssured. *;
 import org.testng.annotations.BeforeClass;
 
